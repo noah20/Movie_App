@@ -34,7 +34,7 @@ class CategoriesFragment : Fragment(), CategoryAdapter.OnCategoryInteract {
             binding.progressBar.visibility = View.GONE
             if(it.size==0){
                 binding.errorMessage.visibility = View.VISIBLE
-                binding.errorMessage.text = "empty list found \ncheck internet Connection"
+                binding.errorMessage.text = "empty list found \ncheck internet Connection..."
             }else{
                 adapter = CategoryAdapter(it,this@CategoriesFragment)
                 binding.rvCategoriesMain.adapter = adapter
