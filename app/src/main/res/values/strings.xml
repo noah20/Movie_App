@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Movie App</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="category_name">category name</string>
+    <string name="movie_title">movie title</string>
+    <string name="venom_let_there_be_carmage">Venom: let There Be Carmage</string>
+    <string name="_20_2_2021_150_mins">20-2-2021.150 mins</string>
+    <string name="_7_8">7.8</string>
+    <string name="_200410">200410</string>
+    <string name="rate_this_movie">Rate This Movie</string>
+    <string name="about">about</string>
+    <string name="overview">about this movies is very good casting and to play about this movies is very good casting and to play about this movies is very good casting and to play</string>
+    <string name="generes">Generes</string>
+    <string name="movie_info">Movie Info</string>
+    <string name="title">title</string>
+    <string name="release">release</string>
+    <string name="budget">Budget</string>
+    <string name="revenue">revenue</string>
+    <string name="run_time">run time</string>
+    <string name="status">status</string>
+    <string name="vote">vote</string>
+    <string name="vote_count">vote count</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="todo">TODO</string>
+    <string name="error_message">Error Message</string>
+</resources>
