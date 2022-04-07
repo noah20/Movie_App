@@ -3,6 +3,7 @@ package com.example.movieapp.ui.categories_fragment.viewmodel
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.movieapp.data.model.CategoryResponse
+import com.example.movieapp.data.model.Movies
 import com.example.movieapp.data.repository.MainRepository
 import com.example.movieapp.utils.Resource
 import com.example.movieapp.utils.Status
@@ -76,16 +77,19 @@ class CategoriesViewModel @Inject constructor(private val restApi: MainRepositor
         }
     }
 
-    fun loadMoreMovies(page: Int, pos: Int): Int {
-        val stateFlow = MutableStateFlow(0)
+    fun loadMoreMovies(page: Int, pos: Int): LiveData<CategoryResponse> {
+
+        val stateFlow = MutableStateFlow<CategoryResponse?>(CategoryResponse(1, emptyList<Movies>(),0,0,""))
+
+
+        var liveData = MutableLiveData<CategoryResponse>()
+
+
         viewModelScope.launch {
             val response = withContext(Dispatchers.Default) {
                 try {
-                    Resource.success(
-                        restApi.loadMoreMoviesForCategory(
-                            categoriesList[pos]!!.categoryName.replace(" ", "_"),
-                            page
-                        )
+                    Resource.success(restApi.loadMoreMoviesForCategory(categoriesList[pos]!!.categoryName.replace(" ", "_"), page)
+
                     )
                 } catch (e: Exception) {
                     Resource.error(
@@ -97,8 +101,8 @@ class CategoriesViewModel @Inject constructor(private val restApi: MainRepositor
 
             when (response.status) {
                 Status.SUCCESS -> {
-                    response.data?.movies?.let {
-                        categoriesList[pos]?.movies?.addAll(it)
+                    response.data?.let {
+                        liveData.value = it
                         Log.d(
                             "CategoriesViewModel",
                             "onCreateView: noah here  load more success new list-> ${categoriesList[pos]?.movies?.size}"
@@ -116,9 +120,9 @@ class CategoriesViewModel @Inject constructor(private val restApi: MainRepositor
                 }
             }
             Log.d("new", "loadMoreMovies: -> ${categoriesList[pos]?.movies?.size} ")
-            stateFlow.emit(pos)
+//            stateFlow.emit(pos)
         }
 
-        return pos
+        return liveData
     }
 }

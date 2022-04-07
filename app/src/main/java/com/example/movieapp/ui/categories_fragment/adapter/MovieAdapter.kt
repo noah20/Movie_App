@@ -10,9 +10,11 @@ import com.example.movieapp.data.model.Movies
 import com.example.movieapp.databinding.RvMovieItemBinding
 import com.example.movieapp.utils.createImageUrl
 
-class MovieAdapter (private val moviesListL : List<Movies?> , val listener : OnMovieClickListener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter ( val listener : OnMovieClickListener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
+    private val _movieList = ArrayList<Movies?>()
 
+    var isLoading = false;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -21,7 +23,7 @@ class MovieAdapter (private val moviesListL : List<Movies?> , val listener : OnM
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val temp = moviesListL[position]
+        val temp = _movieList[position]
 
         holder.bind.tvMovieTitle.text = temp?.title
         Glide.with(holder.bind.root.context)
@@ -30,8 +32,15 @@ class MovieAdapter (private val moviesListL : List<Movies?> , val listener : OnM
 
     }
 
+    fun addItems(list :List<Movies?>){
+        val oldCount =itemCount
+        _movieList.addAll(list)
+        notifyItemRangeInserted(oldCount,list.size)
+        isLoading = false
+    }
+
     override fun getItemCount(): Int {
-        return moviesListL.size
+        return _movieList.size
     }
 
   inner  class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -39,7 +48,7 @@ class MovieAdapter (private val moviesListL : List<Movies?> , val listener : OnM
 
       init {
           bind.root.setOnClickListener(){
-              listener.onMovieClick(moviesListL[adapterPosition]!!.id,adapterPosition)
+              listener.onMovieClick(_movieList[adapterPosition]!!.id,adapterPosition)
           }
       }
     }

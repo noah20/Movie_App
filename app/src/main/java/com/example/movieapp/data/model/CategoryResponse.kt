@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class CategoryResponse(
     val page: Int,
     @SerializedName("results")
-    var movies: MutableList<Movies>,
+    var movies: List<Movies>,
     val total_pages: Int,
     val total_results: Int,
     var categoryName:String
